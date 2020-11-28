@@ -8,12 +8,4 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'museum-catalog';
 
-
-  login() {
-    
-  }
-
-  logout() {
-
-  }
 }

@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "museum-catalog"
+    }
+  },
+  "defaultProject": "museum-catalog",
+  "cli": {
+    "analytics": false
+  }
 }
