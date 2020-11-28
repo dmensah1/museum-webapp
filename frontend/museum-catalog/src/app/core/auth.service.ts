@@ -14,6 +14,9 @@ export class AuthService {
       firebase.default.auth().createUserWithEmailAndPassword(value.email, value.password)
       .then(res => {
         resolve(res);
+        return res.user.updateProfile({
+          displayName: value.username
+        })
       }, err => reject(err))
     })
   }
