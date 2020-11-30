@@ -25,6 +25,10 @@ export class AuthService {
     return new Promise<any>((resolve, reject) => {
       firebase.default.auth().signInWithEmailAndPassword(value.email, value.password)
       .then(res => {
+        //to try and fix the issue of logging out
+        // this.afAuth.setPersistence(firebase.default.auth.Auth.Persistence.SESSION).then(_ => {
+        //   return this.afAuth.signInWithEmailAndPassword(value.email, value.password);
+        // });
         resolve(res);
       }, err => reject(err))
     })

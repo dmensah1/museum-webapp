@@ -69,4 +69,59 @@ app.get('/favourites/:email', (req, res) => {
     });
 });
 
+app.put('/addNewVisitor', (req,res) =>{
+    var body = req.body;
+    var name = body.name;
+    var email = body.email;
+
+    mysqlConnection.query('SELECT a.* From visitor a WHERE email = \'' + email + '\';', (err, rows, fields)=>{
+        if (!err) {
+            if(rows.length ==0 ){
+                mysqlConnection.query('INSERT INTO visitor (name,email,password) VALUES(\'' + name + '\',\'' + email + '\',\'FIREBASE\');', (err, rows, fields)=>{
+                    if (!err) {
+                        //console.log(rows[0].name);
+                        res.send(rows);
+                    } else {
+                        console.log(err);
+                    }
+                });
+            }
+            else{
+                console.log("Already exists in Database");
+                res.send("Already exists in Database");
+            }
+        } else {
+            console.log(err);
+        }
+    });
+});
+
+app.put('/addNewFavourite', (req,res) =>{
+    var body = req.body;
+    var artifactName = body.artifactName;
+    var email = body.email;
+
+    mysqlConnection.query('INSERT INTO favoriteDetails (dateAdded,visitorNo,artifactName) VALUES(CURRENT_DATE(),(SELECT v.visitorNo FROM visitor v WHERE v.email = \'' + email + '\'),\'' + artifactName + '\');', (err, rows, fields)=>{
+        if (!err) {
+            res.send(rows);
+        } else {
+            console.log(err);
+        }
+    });
+});
+
+app.delete('/deleteFavourite/:email/:artifactName', (req,res) =>{
+    var artifactName = req.params.artifactName;
+    var email = req.params.email;
+
+    mysqlConnection.query('DELETE FROM favoriteDetails WHERE visitorNo = (SELECT v.visitorNo FROM visitor v WHERE v.email = \'' + email + '\') AND artifactName = \'' + artifactName + '\';', (err, rows, fields)=>{
+        if (!err) {
+            res.send(rows);
+        } else {
+            console.log(err);
+        }
+    });
+});
+
+
 // can add more routes below, but routes should be separated 

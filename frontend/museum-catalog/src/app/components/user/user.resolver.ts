@@ -19,6 +19,7 @@ export class UserResolver implements Resolve<FirebaseUserModel> {
         user.provider = res.providerData[0].providerId;
         return resolve(user);
       }, err => {
+        console.log(err)
         this.router.navigate(['/login']);
         return reject(err);
       })
