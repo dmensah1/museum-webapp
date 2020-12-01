@@ -36,4 +36,32 @@ app.get('/museum', (req, res) => {
     });
 });
 
+<<<<<<< HEAD
+=======
+// retrieves all artifacts
+app.get('/artifacts', (req, res) => {
+    mysqlConnection.query('SELECT * From artifact;', (err, rows, fields)=>{
+        if (!err) {
+            //console.log(rows[0].name);
+            res.send(rows);
+        } else {
+            console.log(err);
+        }
+    });
+});
+
+// retrieve favourite by email
+app.get('/favourites/:email', (req, res) => {
+    var email = req.params.email;
+    mysqlConnection.query('SELECT f.artifactName FROM favoritedetails f JOIN visitor v on v.visitorNo = f.visitorNo WHERE v.email = \'' + email + '\';', (err, rows, fields)=>{
+        if (!err) {
+            //console.log(rows[0].name);
+            res.send(rows);
+        } else {
+            console.log(err);
+        }
+    });
+});
+
+>>>>>>> parent of 0595c23... Final touches
 // can add more routes below, but routes should be separated 
