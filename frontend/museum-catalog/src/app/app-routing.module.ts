@@ -15,6 +15,9 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
   { path: 'register', component: RegisterComponent, canActivate: [AuthGuard] },
   { path: 'user', component: UserComponent,  resolve: { data: UserResolver}}
+<<<<<<< HEAD
+>>>>>>> parent of 0595c23... Final touches
+=======
 >>>>>>> parent of 0595c23... Final touches
 ];
 

@@ -63,5 +63,8 @@ app.get('/favourites/:email', (req, res) => {
     });
 });
 
+<<<<<<< HEAD
+>>>>>>> parent of 0595c23... Final touches
+=======
 >>>>>>> parent of 0595c23... Final touches
 // can add more routes below, but routes should be separated 
