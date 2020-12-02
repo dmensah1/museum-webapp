@@ -43,7 +43,7 @@ export class AuthService {
 		{email: email, password: password, returnSecureToken: true}
 		).subscribe(response => {
 			const token = response.idToken
-            this.token = token;
+			this.token = token;
             
             this.createUser(name, email, password);
 			this.login(email, password);
@@ -84,7 +84,6 @@ export class AuthService {
 	// ***DOESNT WORK*** to create the user in mysql db 
 	createUser(name: string, email: string, password: string) {
 		this.http.post("http://localhost:3000/addVisitor", {name: name, email:email, password: password}).subscribe(resp => {
-			console.log(resp);
 		});
 	}
     

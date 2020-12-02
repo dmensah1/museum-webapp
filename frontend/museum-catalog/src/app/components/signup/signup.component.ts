@@ -39,10 +39,7 @@ export class SignupComponent {
 			this.activateStatusMessage();
 		}
 		else {
-			// SIGN UP HERE !!!!!
-			console.log('req sent ')
             this.authService.signup(this.email, this.password, fullName);
-			
 		}
 	}
 
