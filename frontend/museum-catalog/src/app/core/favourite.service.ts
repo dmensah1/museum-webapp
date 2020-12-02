@@ -14,9 +14,9 @@ export class FavouriteService {
   };
   allFavourites: string[] = [];
 
-  private allFavouritesURL = 'favourites/';
-  private addFavouriteURL = 'addNewFavourite';
-  private deleteFavouriteURL = 'deleteFavourite/';
+  private allFavouritesURL = 'http://localhost:3000/favourites/';
+  private addFavouriteURL = 'http://localhost:3000/addNewFavourite';
+  private deleteFavouriteURL = 'http://localhost:3000/deleteFavourite/';
 
   favouritesChange: Subject<string[]> = new Subject<string[]>();
 
@@ -37,6 +37,7 @@ export class FavouriteService {
     this.getFavourites()
         .subscribe(favourites => {
           this.allFavourites = [];
+          this.favouritesChange.next([]);
           for (var i=0;i<favourites.length;i++) {
             var name = favourites[i].artifactName;
             this.allFavourites.push(name);

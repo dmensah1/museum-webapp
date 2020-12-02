@@ -23,6 +23,7 @@ export class FavouriteComponent implements OnInit {
     this.favouriteService.getFavourites()
         .subscribe(favourites => {
           console.log(favourites)
+          this.allFavourites = [];
           for (var i=0;i<favourites.length;i++) {
             var name = favourites[i].artifactName;
             this.allFavourites.push(name);

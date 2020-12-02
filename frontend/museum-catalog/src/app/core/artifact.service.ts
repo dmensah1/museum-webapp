@@ -8,7 +8,7 @@ import { catchError} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ArtifactService {
-  private allArtifacts = 'artifacts';
+  private allArtifacts = 'http://localhost:3000/artifacts';
 
   constructor(private http: HttpClient) { }
 

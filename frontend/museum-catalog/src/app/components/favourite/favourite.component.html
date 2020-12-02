@@ -1,7 +1,7 @@
 <h2 class="header">Your Favourites:</h2>
 <ul class="allFavourites">
     <li *ngFor="let all of allFavourites">
-      <span >{{allFavourites}}</span>
+      <span >{{all}}</span>
       <button type="submit" (click)="deleteFavourite(all)">Delete</button>
     </li>
 </ul>
