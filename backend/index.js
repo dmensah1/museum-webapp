@@ -4,7 +4,7 @@ var app = express();
 const bodyparser = require('body-parser');
 
 app.use(bodyparser.json());
-
+var userId = 50000;
 app.use(function(req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT,DELETE");
@@ -68,48 +68,20 @@ app.get('/favourites/:email', (req, res) => {
     });
 });
 
-app.post('/addNewVisitor', (req,res) =>{
-    var name = req.body.name;
-    var email = req.body.email;
-    var password = req.body.password;
-
-    mysqlConnection.query('SELECT a.* From visitor a WHERE email = \'' + email + '\';', (err, rows, fields)=>{
-        if (!err) {
-            if(rows.length ==0 ){
-                mysqlConnection.query('INSERT INTO visitor (name,email,password) VALUES(\'' + name + '\',\'' + email + '\',\'' + password + '\');', (err, rows, fields)=>{
-                    if (!err) {
-                        //console.log(rows[0].name);
-                        res.send(rows);
-                    } else {
-                        console.log(err);
-                    }
-                });
-            }
-            else{
-                console.log("Already exists in Database");
-                res.send("Already exists in Database");
-            }
-        } else {
-            console.log(err);
-        }
-    });
-});
-
+// create a new visitor
 app.post('/addVisitor', (req, res) => {
-    var name = req.body.name;
-    var email = req.body.email;
-    var password = req.body.password;
+    var user = {
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password
+    }
 
-    var sql = `INSERT INTO Visitor (name,email,password) VALUES ('${name}', '${email}', '${password}')`;
-    mysqlConnection.query(sql, err => {
+    mysqlConnection.query('INSERT INTO Visitor SET ?',user, (err,result) => {
         if (err) {
             console.log(err);
-            res.send('Error occurred');
+            res.send("Error occurred");
         }
     });
-    
-
-    //mysqlConnection.query('INSERT INTO visitor (name,email,password) VALUES (${name}, ${email}, ${password} )')
 });
 
 app.put('/addNewFavourite', (req,res) =>{
