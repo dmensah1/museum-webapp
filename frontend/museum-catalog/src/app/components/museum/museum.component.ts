@@ -11,15 +11,23 @@ import { Museum } from './museum.model';
 export class MuseumComponent implements OnInit{
     museums: Museum[];
     visitorId;
+    ticketPurchased = false;
 
     constructor(private museumService: MuseumService, private authService: AuthService) {}
 
     ngOnInit() {
+        let email = localStorage.getItem('email');
+        
         this.museumService.getMuseums().subscribe((response: Museum[]) => {
             this.museums = response;
         });
 
-        
+        this.authService.getUser(email).subscribe(resp => {
+            this.visitorId = resp[0].visitorNo;
+            this.museumService.getUsersTickets(this.visitorId).subscribe(resp => {
+                console.log(resp); //resp is array of tickets the certain user has
+            });
+        });
     }
 
     purchaseTicket(museumId) {
@@ -29,9 +37,8 @@ export class MuseumComponent implements OnInit{
             this.visitorId = resp[0].visitorNo;
             this.museumService.newTicket(this.visitorId, museumId).subscribe(resp => {
                 //console.log(resp);
+                this.ticketPurchased = true;
             });
         });
     }
-
-
 }

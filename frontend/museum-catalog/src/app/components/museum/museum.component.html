@@ -8,11 +8,17 @@
             <h4>{{museum.location}}</h4>
             <p>{{museum.capacity}}</p>
 
-            <p>Select Visit Date: 
-                <input type="date" id="tick-date" name="ticket-date"
-                    min="2020-01-01" max="2022-12-31">
-            </p>
-            <button (click)="purchaseTicket(museum.museumNo)">Purchase Ticket</button>
+            <div *ngIf="!ticketPurchased">
+                <p>Select Visit Date: 
+                    <input type="date" id="tick-date" name="ticket-date"
+                        min="2020-01-01" max="2022-12-31">
+                </p>
+                <button (click)="purchaseTicket(museum.museumNo)">Purchase Ticket</button>
+            </div>
+
+            <div *ngIf="ticketPurchased">
+                <p>Ticket purchased.</p>
+            </div>
         </div>
     </div>
 </div>

@@ -144,3 +144,15 @@ app.post('/newTicket', (req, res) => {
         }
     });
 });
+
+app.get('/getUserTickets/:id', (req,res) => {
+    var visitorNo = req.params.id;
+
+    mysqlConnection.query('SELECT * FROM AdmissionTicket WHERE visitorNo = (SELECT visitorNo FROM Visitor WHERE visitorNo = \'' + visitorNo + '\')', (err, rows) => {
+        if (!err) {
+            res.send(rows);
+        } else {
+            console.log(err);
+        }
+    })
+});

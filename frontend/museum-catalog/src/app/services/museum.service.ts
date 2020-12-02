@@ -20,4 +20,8 @@ export class MuseumService {
     newTicket(visitorId, museumId) {
         return this.http.post("http://localhost:3000/newTicket", {visitorNo: visitorId, museumNo: museumId, admissionPrice: 10});
     }
+
+    getUsersTickets(visitorId) {
+        return this.http.get(`http://localhost:3000/getUserTickets/${visitorId}`);
+    }
 }
