@@ -26,7 +26,7 @@ export class SignupComponent {
 		this.password = signupForm.value.password;
 		this.fname = signupForm.value.fname;
 		this.lname = signupForm.value.lname;
-
+		let fullName = this.fname + " " + this.lname;
         
 		if (this.validateName(this.fname, this.lname) == false){
 			this.activateStatusMessage();
@@ -41,7 +41,7 @@ export class SignupComponent {
 		else {
 			// SIGN UP HERE !!!!!
 			console.log('req sent ')
-            this.authService.signup(this.email, this.password, this.fname, this.lname);
+            this.authService.signup(this.email, this.password, fullName);
 			
 		}
 	}

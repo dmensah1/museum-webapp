@@ -5,6 +5,13 @@ const bodyparser = require('body-parser');
 
 app.use(bodyparser.json());
 
+app.use(function(req, res, next) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT,DELETE");
+    res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+    next();
+});
+
 var mysqlConnection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -61,15 +68,15 @@ app.get('/favourites/:email', (req, res) => {
     });
 });
 
-app.put('/addNewVisitor', (req,res) =>{
-    var body = req.body;
-    var name = body.name;
-    var email = body.email;
+app.post('/addNewVisitor', (req,res) =>{
+    var name = req.body.name;
+    var email = req.body.email;
+    var password = req.body.password;
 
     mysqlConnection.query('SELECT a.* From visitor a WHERE email = \'' + email + '\';', (err, rows, fields)=>{
         if (!err) {
             if(rows.length ==0 ){
-                mysqlConnection.query('INSERT INTO visitor (name,email,password) VALUES(\'' + name + '\',\'' + email + '\',\'FIREBASE\');', (err, rows, fields)=>{
+                mysqlConnection.query('INSERT INTO visitor (name,email,password) VALUES(\'' + name + '\',\'' + email + '\',\'' + password + '\');', (err, rows, fields)=>{
                     if (!err) {
                         //console.log(rows[0].name);
                         res.send(rows);
@@ -86,6 +93,23 @@ app.put('/addNewVisitor', (req,res) =>{
             console.log(err);
         }
     });
+});
+
+app.post('/addVisitor', (req, res) => {
+    var name = req.body.name;
+    var email = req.body.email;
+    var password = req.body.password;
+
+    var sql = `INSERT INTO Visitor (name,email,password) VALUES ('${name}', '${email}', '${password}')`;
+    mysqlConnection.query(sql, err => {
+        if (err) {
+            console.log(err);
+            res.send('Error occurred');
+        }
+    });
+    
+
+    //mysqlConnection.query('INSERT INTO visitor (name,email,password) VALUES (${name}, ${email}, ${password} )')
 });
 
 app.put('/addNewFavourite', (req,res) =>{
@@ -114,5 +138,4 @@ app.delete('/deleteFavourite/:email/:artifactName', (req,res) =>{
         }
     });
 });
-
-// can add more routes below, but routes should be separated 
+// can add more routes below

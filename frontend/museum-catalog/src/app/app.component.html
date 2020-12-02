@@ -7,19 +7,15 @@
 			</a>
 			<nav>
 				<ul>
-					<li ><a href="#" routerLink="/" id="home">Home</a></li>
-					<li ><a href="#"  id="explore">Museums</a></li>
-					<li ><a href="#"  id="experience">Favorites</a></li>
-          			<li ><a routerLink="/login" (click)="login()">Login</a></li>
-         			<li ><a (click)="logout()">Logout</a></li>
+					<li *ngIf="isAuthenticated"><a href="#" routerLink="/" id="home">Home</a></li>
+					<li *ngIf="isAuthenticated"><a href="#"  id="explore">Museums</a></li>
+					<li *ngIf="isAuthenticated"><a href="#"  id="experience">Favorites</a></li>
+          			<li *ngIf="isAuthenticated"><a (click)="logout()">Logout</a></li>
 				</ul>
 			</nav>
 		</div>
 	</div>
 </header>
-
-
-
 
 <div id="main" class="container">
 	<router-outlet></router-outlet>
