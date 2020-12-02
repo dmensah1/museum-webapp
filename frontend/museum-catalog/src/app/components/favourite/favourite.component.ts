@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
+import { MuseumService } from 'src/app/services/museum.service';
 import { FavouriteService } from '../../core/favourite.service';
 
 @Component({
@@ -7,22 +9,34 @@ import { FavouriteService } from '../../core/favourite.service';
   styleUrls: ['./favourite.component.css']
 })
 export class FavouriteComponent implements OnInit {
-
+  visitorId;
+  visitorName;
   allFavourites: string[];
+  allTickets;
 
-  constructor(private favouriteService: FavouriteService) {
+  constructor(private favouriteService: FavouriteService, private authService: AuthService, private museumService: MuseumService) {
     this.allFavourites = favouriteService.allFavourites;
     this.favouriteService.favouritesChange.subscribe(value => this.allFavourites = value);
    }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.getFavourites()
+
+    // retrieves the user's tickets upon page load
+    let email = localStorage.getItem('email');
+    this.authService.getUser(email).subscribe(resp => {
+      this.visitorId = resp[0].visitorNo;
+      this.visitorName = resp[0].name;
+      this.museumService.getUsersTickets(this.visitorId).subscribe(resp => {
+          this.allTickets = resp;
+      });
+  });
   }
 
   getFavourites(): void {
     this.favouriteService.getFavourites()
         .subscribe(favourites => {
-          console.log(favourites)
+          //console.log(favourites)
           this.allFavourites = [];
           for (var i=0;i<favourites.length;i++) {
             var name = favourites[i].artifactName;
@@ -37,5 +51,4 @@ export class FavouriteComponent implements OnInit {
           this.favouriteService.updateFavouritesList();
       });
   }
-
 }

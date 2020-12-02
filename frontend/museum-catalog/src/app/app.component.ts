@@ -9,6 +9,7 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent implements OnInit, OnDestroy{
   title = 'museum-catalog';
+  menuOptions = ["Favorites", "My Tickets"];
 
   isAuthenticated = false;
   private isAuthListenerSub: Subscription;

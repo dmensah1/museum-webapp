@@ -16,7 +16,7 @@ app.use(function(req, res, next) {
 var mysqlConnection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'root',//'Demirmensah12@',
+    password: 'Demirmensah12@',//'Demirmensah12@',
     database: 'museum'
 });
 
@@ -148,7 +148,7 @@ app.post('/newTicket', (req, res) => {
 app.get('/getUserTickets/:id', (req,res) => {
     var visitorNo = req.params.id;
 
-    mysqlConnection.query('SELECT * FROM AdmissionTicket WHERE visitorNo = (SELECT visitorNo FROM Visitor WHERE visitorNo = \'' + visitorNo + '\')', (err, rows) => {
+    mysqlConnection.query('SELECT t.*, m.* FROM AdmissionTicket t JOIN Museum m ON t.museumNo = m.museumNo WHERE t.visitorNo =  \'' + visitorNo + '\'', (err, rows) => {
         if (!err) {
             res.send(rows);
         } else {

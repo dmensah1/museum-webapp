@@ -5,20 +5,13 @@
     <div class="column" *ngFor="let museum of museums">
         <div class="museum-box">
             <h1>{{museum.name}}</h1>
-            <h4>{{museum.location}}</h4>
-            <p>{{museum.capacity}}</p>
-
-            <div *ngIf="!ticketPurchased">
-                <p>Select Visit Date: 
-                    <input type="date" id="tick-date" name="ticket-date"
-                        min="2020-01-01" max="2022-12-31">
-                </p>
-                <button (click)="purchaseTicket(museum.museumNo)">Purchase Ticket</button>
-            </div>
-
-            <div *ngIf="ticketPurchased">
-                <p>Ticket purchased.</p>
-            </div>
+            <h4>Location: {{museum.location}}</h4>
+            <p>Capacity: {{museum.capacity}} people.</p>
+            <p>Select Visit Date: 
+                <input type="date" id="tick-date" name="ticket-date"
+                    min="2020-01-01" max="2022-12-31">
+            </p>
+            <button (click)="purchaseTicket(museum.museumNo)">Purchase Ticket</button>
         </div>
     </div>
 </div>

@@ -1,3 +1,17 @@
+<h1>Hi {{visitorName}}!</h1>
+
+<h2>Your Tickets!</h2>
+<ol>
+  <div *ngFor="let ticket of allTickets">
+    <li>
+      <h5>To: {{ticket.name}}</h5>
+      <p>Location: {{ticket.location}}</p>
+    </li>
+  </div>
+</ol>
+
+<hr>
+
 <h2 class="header">Your Favourites:</h2>
 <ul class="allFavourites">
     <li *ngFor="let all of allFavourites">

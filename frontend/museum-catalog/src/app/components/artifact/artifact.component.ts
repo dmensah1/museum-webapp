@@ -20,7 +20,6 @@ export class ArtifactComponent implements OnInit {
   getArtifacts(): void {
     this.artifactService.getArtifacts()
         .subscribe(artifacts => {
-          console.log(artifacts)
           for (var i=0;i<artifacts.length;i++) {
             var name = artifacts[i].name;
             this.allArtifacts.push(name);
