@@ -1,0 +1,27 @@
+.row {
+	display: flex;
+	flex-wrap: wrap;
+    flex-direction: row;
+	margin: 0;
+
+	.column {
+		background-color: white;
+		border: 1px solid black;
+		border-radius: 20px;
+		float: left;
+    	width: 30%;
+    	display: inherit;  // Sets project heights to be equal
+		transition: 0.2s ease;
+		margin: 5px;
+
+		cursor: pointer;
+		
+		.content-box {
+			padding: 10px;
+		}
+
+		&:hover {
+			background-color: orange;
+		}
+	}
+}

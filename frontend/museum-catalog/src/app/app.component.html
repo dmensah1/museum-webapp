@@ -8,8 +8,8 @@
 			<nav>
 				<ul>
 					<li *ngIf="isAuthenticated"><a href="#" routerLink="/" id="home">Home</a></li>
-					<li *ngIf="isAuthenticated"><a href="#"  id="explore">Museums</a></li>
-					<li *ngIf="isAuthenticated"><a href="#"  id="experience">Favorites</a></li>
+					<li *ngIf="isAuthenticated"><a href="#" routerLink="/museum" id="explore">Museums</a></li>
+					<li *ngIf="isAuthenticated"><a href="#" routerLink="/" id="experience">Favorites</a></li>
           			<li *ngIf="isAuthenticated"><a (click)="logout()">Logout</a></li>
 				</ul>
 			</nav>

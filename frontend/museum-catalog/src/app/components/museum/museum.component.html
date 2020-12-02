@@ -1,0 +1,13 @@
+<h1>Museums</h1>
+<hr>
+
+<div class="row">
+    <div class="column" *ngFor="let museum of museums">
+        <div class="museum-box">
+            <h1>{{museum.name}}</h1>
+            <h4>{{museum.location}}</h4>
+            <p>{{museum.capacity}}</p>
+            <button (click)="purchaseTicket(museum.museumNo)">Purchase Ticket</button>
+        </div>
+    </div>
+</div>
