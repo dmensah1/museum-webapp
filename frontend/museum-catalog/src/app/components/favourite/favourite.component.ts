@@ -8,9 +8,12 @@ import { FavouriteService } from '../../core/favourite.service';
 })
 export class FavouriteComponent implements OnInit {
 
-  allFavourites: string[] = [];
+  allFavourites: string[];
 
-  constructor(private favouriteService: FavouriteService) { }
+  constructor(private favouriteService: FavouriteService) {
+    this.allFavourites = favouriteService.allFavourites;
+    this.favouriteService.favouritesChange.subscribe(value => this.allFavourites = value);
+   }
 
   ngOnInit(): void {
     this.getFavourites()
@@ -20,10 +23,18 @@ export class FavouriteComponent implements OnInit {
     this.favouriteService.getFavourites()
         .subscribe(favourites => {
           console.log(favourites)
+          this.allFavourites = [];
           for (var i=0;i<favourites.length;i++) {
             var name = favourites[i].artifactName;
             this.allFavourites.push(name);
           }
+      });
+  }
+
+  deleteFavourite(artifactName): void {
+    this.favouriteService.deleteFavourite(artifactName)
+        .subscribe(favourites => {
+          this.favouriteService.updateFavouritesList();
       });
   }
 

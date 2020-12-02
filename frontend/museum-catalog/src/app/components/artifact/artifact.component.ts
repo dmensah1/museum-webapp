@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ArtifactService } from '../../core/artifact.service';
+import { FavouriteService } from '../../core/favourite.service';
 
 @Component({
   selector: 'app-artifact',
@@ -10,7 +11,7 @@ export class ArtifactComponent implements OnInit {
 
   allArtifacts: string[] = [];
 
-  constructor(private artifactService: ArtifactService) { }
+  constructor(private artifactService: ArtifactService,private favouriteService: FavouriteService) { }
 
   ngOnInit(): void {
     this.getArtifacts();
@@ -25,6 +26,14 @@ export class ArtifactComponent implements OnInit {
             this.allArtifacts.push(name);
           }
       });
+  }
+
+  addToFavourites(artifactName){
+    console.log(artifactName)
+    this.favouriteService.addFavourite(artifactName)
+    .subscribe(artifacts => {
+      this.favouriteService.updateFavouritesList();
+  });
   }
 
 }

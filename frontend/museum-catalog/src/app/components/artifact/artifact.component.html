@@ -2,5 +2,6 @@
 <ul class="allArtifacts">
     <li *ngFor="let all of allArtifacts; index as i">
       <span >{{all}}</span>
+      <button type="submit" (click)="addToFavourites(all)">Favourite</button>
     </li>
 </ul>

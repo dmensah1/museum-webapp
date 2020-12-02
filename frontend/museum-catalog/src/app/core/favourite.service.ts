@@ -1,29 +1,69 @@
 import { Injectable } from '@angular/core';
-import { Observable, of} from 'rxjs';
-import { Favourite } from './favourite';
-import { HttpClient} from '@angular/common/http';
+import { Observable, of, Subject } from 'rxjs';
+import { Favourite } from '../models/favourite';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError} from 'rxjs/operators';
-import { UserService } from './user.service';
-import { from } from 'rxjs';
-import { concatMap, delay, mergeMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FavouriteService {
 
-  private allFavourites = 'favourites/';
+  private httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+  allFavourites: string[] = [];
 
-  constructor(public userService: UserService,private http: HttpClient) { }
+  private allFavouritesURL = 'http://localhost:3000/favourites/';
+  private addFavouriteURL = 'http://localhost:3000/addNewFavourite';
+  private deleteFavouriteURL = 'http://localhost:3000/deleteFavourite/';
+
+  favouritesChange: Subject<string[]> = new Subject<string[]>();
+
+  constructor(private http: HttpClient) {
+    this.favouritesChange.subscribe((value) => {
+      this.allFavourites = value
+  });
+   }
 
   getFavourites(): Observable<Favourite[]> {
-    return from(this.userService.getCurrentUser()).pipe(concatMap(
-      res => {
-        var url = this.allFavourites.concat(res.email);
+    var url = this.allFavouritesURL.concat(localStorage.getItem('email'));
         return this.http.get<Favourite[]>(url).pipe(
           catchError(this.handleError<Favourite[]>('getFavourites'))
         );
-      }))
+  }
+
+  updateFavouritesList(){
+    this.getFavourites()
+        .subscribe(favourites => {
+          this.allFavourites = [];
+          this.favouritesChange.next([]);
+          for (var i=0;i<favourites.length;i++) {
+            var name = favourites[i].artifactName;
+            this.allFavourites.push(name);
+          }
+          this.favouritesChange.next(this.allFavourites);
+          console.log(this.allFavourites)
+      });
+  }
+
+  addFavourite(artifactName): Observable<[]> {
+    var url = this.addFavouriteURL;
+        var body = {
+          "artifactName": artifactName,
+          "email": localStorage.getItem('email')
+          }
+        return this.http.put<[]>(url, body,this.httpOptions).pipe(
+          catchError(this.handleError<[]>('addFavourite')),
+        );
+    
+  }
+
+  deleteFavourite(artifactName): Observable<[]> {
+    var url = this.deleteFavouriteURL.concat(localStorage.getItem('email') + "/" + artifactName);;
+        return this.http.delete<[]>(url, this.httpOptions).pipe(
+          catchError(this.handleError<[]>('deleteFavourite'))
+        );
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
