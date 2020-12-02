@@ -37,21 +37,20 @@ export class AuthService {
 		return this.authStatusListener.asObservable();
     }
     
-    	// Sign up as new user
-	signup(email: string, password: string, fname: string, lname: string) {
+    // Sign up as new user
+	signup(email: string, password: string, name: string) {
 		return this.http.post<AuthResponseData>(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.firebaseAPIKey}`, 
 		{email: email, password: password, returnSecureToken: true}
 		).subscribe(response => {
-			let backendId = response.localId;
 			const token = response.idToken
             this.token = token;
             
-            // this.createUser(backendId, name, isTrainer, email); API CALL TO MYSQL DB TO CREATE THIS USER
+            this.createUser(name, email, password);
 			this.login(email, password);
 		});
     }
     
-    	// Login User
+	// Login User
 	login(email, password) {
 		this.http.post<AuthResponseData>(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.firebaseAPIKey}`,
 		{email: email, password: password, returnSecureToken: true}
@@ -60,7 +59,6 @@ export class AuthService {
 			this.token = token;
 
 			if (token) {
-				let backEndID = response.localId;
 
                 const expirationTime = +response.expiresIn;
                 this.setAuthTimer(expirationTime);
@@ -81,6 +79,13 @@ export class AuthService {
 		clearTimeout(this.tokenTimer);
 		this.clearAuthData();
 		this.router.navigate(['/login']);
+	}
+
+	// ***DOESNT WORK*** to create the user in mysql db 
+	createUser(name: string, email: string, password: string) {
+		this.http.post("http://localhost:3000/addVisitor", {name: name, email:email, password: password}).subscribe(resp => {
+			console.log(resp);
+		});
 	}
     
 
