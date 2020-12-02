@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { dateTime } from 'node-datetime';
 
 @Injectable({
     providedIn: 'root'
@@ -15,6 +15,9 @@ export class MuseumService {
     getMuseums() {
         this.museums = [];
         return this.http.get("http://localhost:3000/museum");
-        
+    }
+
+    newTicket(visitorId, museumId) {
+        return this.http.post("http://localhost:3000/newTicket", {visitorNo: visitorId, museumNo: museumId, admissionPrice: 10});
     }
 }

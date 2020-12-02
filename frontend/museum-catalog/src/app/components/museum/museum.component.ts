@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 import { MuseumService } from 'src/app/services/museum.service';
 import { Museum } from './museum.model';
 
@@ -9,17 +10,28 @@ import { Museum } from './museum.model';
 })
 export class MuseumComponent implements OnInit{
     museums: Museum[];
+    visitorId;
 
-    constructor(private museumService: MuseumService) {}
+    constructor(private museumService: MuseumService, private authService: AuthService) {}
 
     ngOnInit() {
         this.museumService.getMuseums().subscribe((response: Museum[]) => {
             this.museums = response;
-            console.log(this.museums);
+        });
+
+        
+    }
+
+    purchaseTicket(museumId) {
+        let email = localStorage.getItem('email');
+
+        this.authService.getUser(email).subscribe(resp => {
+            this.visitorId = resp[0].visitorNo;
+            this.museumService.newTicket(this.visitorId, museumId).subscribe(resp => {
+                //console.log(resp);
+            });
         });
     }
 
-    purchaseTicket(id) {
-        console.log(id);
-    }
+
 }
