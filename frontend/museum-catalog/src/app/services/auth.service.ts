@@ -138,4 +138,10 @@ export class AuthService {
 		};
 	}
 
+	getUser(email: string) {
+		return this.http.get<{user}>(`http://localhost:3000/getVisitor/${email}`);
+	}
+
+	
+
 }
