@@ -1,0 +1,34 @@
+<h1>Edit Artifact Info</h1>
+
+<form id="newArtifact" name="newArtifact" #artifactData="ngForm" (ngSubmit)="newArtifact(artifactData.value)">
+  <label>Artifact Name: </label>
+  <input type="text" name="name" id="name" placeholder="name" ngModel>
+  <br>
+
+  <label>Description: </label>
+  <input type="text" name="description" id="description" placeholder="description" ngModel>
+  <br>
+
+  <label>Country: </label>
+  <input type="text" name="country" id="country" placeholder="country" ngModel>
+  <br>
+
+  <label>Theme: </label>
+  <input type="text" name="theme" id="theme" placeholder="theme" ngModel>
+  <br>
+
+  <label>Time Period: </label>
+  <input type="text" name="timePeriod" id="timePeriod" placeholder="timePeriod" ngModel>
+  <br>
+
+  <input type="submit" value="Add Artifact">
+</form>
+
+<ul class="allArtifacts">
+  <!-- <li *ngFor="let all of allArtifacts; index as i"> -->
+  <li *ngFor="let artifact of artifacts">
+    <span>{{ artifact.name }}</span>
+    <span [routerLink]="['/update', artifact.artifactNo]"> - Update</span>
+    <!-- <button type="submit" (click)="addToFavourites(all)">Favourite</button> -->
+  </li>
+</ul>

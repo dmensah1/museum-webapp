@@ -11,6 +11,8 @@ import { SignupComponent } from './components/signup/signup.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MuseumComponent } from './components/museum/museum.component';
+import { CuratorComponent } from './components/curator/curator.component';
+import { UpdateArtifactComponent } from './components/update-artifact/update-artifact.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { MuseumComponent } from './components/museum/museum.component';
     SignupComponent,
     MuseumComponent,
     FavouriteComponent,
-    ArtifactComponent
+    ArtifactComponent,
+    CuratorComponent,
+    UpdateArtifactComponent
   ],
   imports: [
     BrowserModule,
