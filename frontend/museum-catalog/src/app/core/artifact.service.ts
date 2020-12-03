@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Artifact } from '../models/artifact';
-import { Observable, of} from 'rxjs';
-import { HttpClient} from '@angular/common/http';
-import { catchError} from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +24,9 @@ export class ArtifactService {
       console.error(`${operation} failed: ${error.message}`);
       return of(result as T);
     };
+  }
+
+  getArtifactById(id) {
+    return this.http.get("http://localhost:3000/getArtifact/" + id)
   }
 }

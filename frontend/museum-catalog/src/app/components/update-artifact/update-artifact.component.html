@@ -1,0 +1,30 @@
+<h2>Update Artifact Info</h2>
+
+<form id="updateArtifact" name="updateArtifact" #artifactInfo="ngForm" (ngSubmit)="updateInfo(artifactInfo.value)">
+  <label>Artifact Number: </label>
+  <!-- <input type="text" name="artifactNo" id="artifactNo" placeholder="artifactNo" [(ngModel)]="data.artifactNo" ngModel> -->
+  <input type="text" name="artifactNo" id="artifactNo" [(ngModel)]="artifact.artifactNo">
+  <br>
+
+  <label>Name: </label>
+  <input type="text" name="name" id="name" [(ngModel)]="artifact.name">
+  <br>
+
+  <label>Description: </label>
+  <input type="text" name="description" id="description" [(ngModel)]="artifact.description">
+  <br>
+
+  <label>Country: </label>
+  <input type="text" name="country" id="country" [(ngModel)]="artifact.country">
+  <br>
+
+  <label>Theme: </label>
+  <input type="text" name="theme" id="theme" [(ngModel)]="artifact.theme">
+  <br>
+
+  <label>Time Period: </label>
+  <input type="text" name="timePeriod" id="timePeriod" [(ngModel)]="artifact.timePeriod">
+  <br>
+
+  <button>Update</button>
+</form>
