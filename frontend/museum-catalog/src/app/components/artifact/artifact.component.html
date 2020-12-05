@@ -1,7 +1,17 @@
-<h2 class="header">All Artifacts</h2>
-<ul class="allArtifacts">
-    <li *ngFor="let all of allArtifacts; index as i">
-      <span >{{all}}</span>
-      <button type="submit" (click)="addToFavourites(all)">Favourite</button>
-    </li>
-</ul>
+<!-- <h2 class="header">All Artifacts</h2> -->
+<div class="container">
+	<div class="items">
+		<div class="items-head">
+			<p>All Artifacts</p>
+			<hr>
+		</div>
+		<div class="items-body-content">
+			<ul class="allArtifacts">
+			    <li *ngFor="let all of allArtifacts; index as i">
+			      <span >{{all}}</span>
+			      <button type="submit" (click)="addToFavourites(all)">Favourite</button>
+			    </li>
+			</ul>
+		</div>
+	</div>
+</div>
