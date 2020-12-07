@@ -2,7 +2,8 @@
 	display: flex;
 	flex-wrap: wrap;
     flex-direction: row;
-	margin: 0;
+	margin: 24px;
+	width: 1200px;
 
 	.column {
 		background-color: white;
@@ -24,4 +25,15 @@
 			background-color: orange;
 		}
 	}
+}
+
+.museum-box {
+	border-radius: 10px;
+	font-family: 'Roboto', sans-serif;
+	display: block;
+	text-align: center;
+}
+
+.btn {
+	box-shadow: none;
 }
