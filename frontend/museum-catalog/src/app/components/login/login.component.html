@@ -1,27 +1,40 @@
-<h1>Login Here.</h1>
-
-<section>
-	
-	<div class="form">
-		<form (submit)="onSubmit(loginForm)" #loginForm="ngForm">
-			<div class="form-group">
-				<label for="email">Email</label>
-				<input type="text" id="email" name="email" [(ngModel)]="email"/>
-			</div>
-
-			<div class="form-group">
-				<label for="password">Password</label>
-				<input type="password" id="password" name="password" [(ngModel)]="password"/>
-			</div>
-
-			<div class="form-group">
-				<button type="submit">Login</button>
-				<button routerLink='/signup'>Sign Up</button>
-			</div>
-		</form>
-    </div>
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html lang="en" class="ie6 ielt8"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="ie7 ielt8"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="ie8"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>Paper Stack</title>
+<link rel="stylesheet" type="text/css" href="login.component.css" />
+</head>
+<body>
+<div class="container">
+  <section id="content">
     
-    <div id="status" class="error" *ngIf="statusDisplay" [style.animation]="statusAnimation">
-        {{statusText}}
-    </div>
-</section>
+    <div class="form">
+      <form (submit)="onSubmit(loginForm)" #loginForm="ngForm">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="text" id="email" name="email" [(ngModel)]="email"/>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" [(ngModel)]="password"/>
+        </div>
+
+        <div class="form-group">
+          <button type="submit">Login</button>
+          <button routerLink='/signup'>Sign Up</button>
+        </div>
+      </form>
+      </div>
+      
+      <div id="status" class="error" *ngIf="statusDisplay" [style.animation]="statusAnimation">
+          {{statusText}}
+      </div>
+  </section>
+</div><!-- container -->
+</body>
+</html>
